@@ -24,6 +24,13 @@ program
     runCommand(alias);
   });
 
+program
+  .command('list')
+  .description('List all stored commands')
+  .action(function() {
+    listCommands();
+  });
+
 program.parse(process.argv);
 
 /* Functions */
@@ -45,6 +52,11 @@ function runCommand(alias) {
       console.log('exec error: ' + error);
     }
   });
+}
+
+function listCommands() {
+  let storeJSON = JSON.parse(fs.readFileSync(STORE_PATH));
+  Object.keys(storeJSON).forEach((key) => console.log(key, '==>', storeJSON[key]));
 }
 
 function isStorePresent() {
