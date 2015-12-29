@@ -45,13 +45,13 @@ function storeCommand(command, alias) {
   if(!isStorePresent()) {
     return;
   }
-  let storeJSON = JSON.parse(fs.readFileSync(STORE_PATH));
+  let storeJSON = getStore();
   storeJSON[alias] = command;
   fs.writeFileSync(STORE_PATH, JSON.stringify(storeJSON));
 }
 
 function runCommand(alias) {
-  let storeJSON = JSON.parse(fs.readFileSync(STORE_PATH));
+  let storeJSON = getStore();
   let child = exec(storeJSON[alias], function(error, stdout, stderr) {
     console.log('stdout: ' + stdout);
     console.log('stderr: ' + stderr);
@@ -62,7 +62,7 @@ function runCommand(alias) {
 }
 
 function listCommands() {
-  let storeJSON = JSON.parse(fs.readFileSync(STORE_PATH));
+  let storeJSON = getStore();
   Object.keys(storeJSON).forEach((key) => console.log(key, '==>', storeJSON[key]));
 }
 
