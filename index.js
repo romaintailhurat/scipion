@@ -20,7 +20,7 @@ program
 
 program
   .command('run <alias>')
-  .action(function(alias, options) {
+  .action(function(alias) {
     runCommand(alias);
   });
 
