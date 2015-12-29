@@ -31,6 +31,13 @@ program
     listCommands();
   });
 
+program
+  .command('show <alias>')
+  .description('Show the command line relative to an alias')
+  .action((alias) => {
+    showCommand(alias);
+  });
+
 program.parse(process.argv);
 
 /* Functions */
@@ -59,6 +66,11 @@ function listCommands() {
   Object.keys(storeJSON).forEach((key) => console.log(key, '==>', storeJSON[key]));
 }
 
+function showCommand(alias) {
+  console.log(getStore()[alias]);
+}
+
+/* Utils */
 function isStorePresent() {
   try {
     let stats = fs.statSync(STORE_PATH);
@@ -66,4 +78,8 @@ function isStorePresent() {
   } catch(e) {
     console.log(e);
   }
+}
+
+function getStore() {
+  return JSON.parse(fs.readFileSync(STORE_PATH));
 }

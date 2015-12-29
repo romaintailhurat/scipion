@@ -1,1 +1,1 @@
-{"com":"my command","yo":"echo YO"}
+{"com":"my command","yo":"echo YO","find-big-files":"sudo find / -size +500000 -print"}
